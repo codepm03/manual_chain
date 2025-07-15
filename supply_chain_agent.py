@@ -32,6 +32,11 @@ class SupplyChainAgent:
             item = entities.get("item_name")
             return self.inventory.check_stock(item)
 
+        elif intent == "update_stock":
+            item = entities.get("item_name")
+            quantity_to_add = int(entities.get("quantity", "0"))
+            return self.inventory.update_stock(item, quantity_to_add)
+
         elif intent == "predict_shortage":
             return self.inventory.predict_shortage()
 
