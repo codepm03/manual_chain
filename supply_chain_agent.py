@@ -54,8 +54,14 @@ class SupplyChainAgent:
             po_text, po_id = self.purchase_order.create_po_text(item, quantity, unit, price, supplier_name)
             pdf_file = self.purchase_order.create_po_pdf(po_text, po_id)
 
-            # In a real app, you'd get the supplier's number from the sheet
-            supplier_whatsapp = "+919876543210" # Mock number
+            supplier_details = self.supplier.get_supplier_details(supplier_name)
+            if not supplier_details:
+                return f"Supplier '{supplier_name}' not found."
+
+            supplier_whatsapp = supplier_details.get("WhatsApp Number")
+            if not supplier_whatsapp:
+                return f"WhatsApp number for supplier '{supplier_name}' not found."
+
             self.notifier.send_pdf(supplier_whatsapp, pdf_file, f"New PO: {po_id}")
 
             return f"Purchase order {po_id} created and sent to {supplier_name}."
