@@ -7,7 +7,7 @@ class Inventory:
         scopes = ["https://www.googleapis.com/auth/spreadsheets"]
         creds = Credentials.from_service_account_file("credentials.json", scopes=scopes)
         self.client = gspread.authorize(creds)
-        self.sheet = self.client.open("inventory").sheet1
+        self.sheet = self.client.open("inventory").worksheet("Inventory_supply")
 
     def check_stock(self, item_name):
         """Checks the stock level of a given item."""
