@@ -1,0 +1,7 @@
+Flask
+gspread
+google-auth-oauthlib
+pandas
+fpdf
+openai
+python-dotenv
